@@ -1,0 +1,46 @@
+name: scaleway
+on:
+    # Trigger the workflow on push but only for the master branch
+    push:
+        branches:
+            - master
+env:
+    SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+    SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+    SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
+
+jobs:
+    terraform:
+        name: 'Terraform'
+        runs-on: ubuntu-latest
+        steps:
+          - name: 'Checkout'
+            uses: actions/checkout@master
+          - name: 'Terraform Format'
+            uses: hashicorp/terraform-github-actions@master
+            with:
+              tf_actions_version: 0.12.13
+              tf_actions_subcommand: 'fmt'
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: 'Terraform Init'
+            uses: hashicorp/terraform-github-actions@master
+            with:
+              tf_actions_version: 0.12.13
+              tf_actions_subcommand: 'init'
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: 'Terraform Validate'
+            uses: hashicorp/terraform-github-actions@master
+            with:
+              tf_actions_version: 0.12.13
+              tf_actions_subcommand: 'validate'
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: 'Terraform Plan'
+            uses: hashicorp/terraform-github-actions@master
+            with:
+              tf_actions_version: 0.12.13
+              tf_actions_subcommand: 'plan'
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
