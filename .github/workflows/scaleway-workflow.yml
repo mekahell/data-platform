@@ -3,7 +3,9 @@ on:
     # Trigger the workflow on push but only for the master branch
     push:
         branches:
-            - master
+            - 'master'
+        paths:
+            - 'scaleway/**'
 env:
     SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
     SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
