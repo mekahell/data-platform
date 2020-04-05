@@ -3,7 +3,7 @@ provider "scaleway" {
   region = "${var.scw_region}"
 }
 
-resource "scaleway_instance_ip" "bastion_ip" { }
+resource "scaleway_instance_ip" "bastion_ip" {}
 
 resource "scaleway_instance_security_group" "bastion" {
   name = "sg-bastion"

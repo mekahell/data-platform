@@ -12,5 +12,5 @@ variable "scw_image_uuid" {
 }
 
 variable "allow_public_ip" {
-  default  = "88.126.0.13"
+  default = "88.126.0.13"
 }
